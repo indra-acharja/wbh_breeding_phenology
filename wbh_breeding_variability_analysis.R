@@ -1,5 +1,5 @@
 # ============================================================
-# Breeding phenology & performance figures + summary table
+# Breeding phenology & performance figures and summary table
 # ============================================================
 
 suppressPackageStartupMessages({
@@ -13,7 +13,7 @@ suppressPackageStartupMessages({
 # Paths
 # ----------------------------
 input_file <- "C:\\Users\\indra\\OneDrive - Texas State University\\Projects\\Breeding Phenology\\Data_Scripts\\2016_to_2025_breedingdates.csv"
-output_dir <- "outputs"
+output_dir <- "figs_tables"
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
 # Export sizes (mm)
@@ -378,23 +378,3 @@ year_tbl <- dat %>%
 
 write_csv(year_tbl, file.path(output_dir, "Table_01_FirstEgg_Summary_by_Year.csv"))
 
-tbl_gt <- year_tbl %>%
-  gt() %>%
-  tab_options(
-    table.font.size = 12,
-    data_row.padding = px(4),
-    table.border.top.width = px(1),
-    table.border.bottom.width = px(1),
-    column_labels.border.bottom.width = px(1)
-  ) %>%
-  tab_style(
-    style = cell_text(weight = "bold"),
-    locations = cells_column_labels(everything())
-  ) %>%
-  tab_source_note(
-    source_note = md("**Note:** Julian day 1 corresponds to January 1. Dates in parentheses are the actual calendar dates of the earliest and latest eggs each year.")
-  )
-
-gtsave(tbl_gt, file.path(output_dir, "Table_01_FirstEgg_Summary_by_Year.png"))
-
-message("All outputs written to: ", normalizePath(output_dir))
