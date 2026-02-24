@@ -13,6 +13,7 @@ suppressPackageStartupMessages({
 # Paths
 # ----------------------------
 input_file <- "2016_to_2025_breedingdates.csv"
+input_file <- "data/2016_to_2025_breedingdates.csv"
 output_dir <- "figs_tables"
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
