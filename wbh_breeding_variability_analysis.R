@@ -35,8 +35,8 @@ figure_theme <- function(base_size = 10) {
       panel.grid.major = element_line(colour = "white", linewidth = 0.2),
       panel.grid.minor = element_line(colour = "white", linewidth = 0.2),
       legend.background = element_rect(fill = "transparent", colour = NA),
-      legend.key        = element_rect(fill = "transparent", colour = NA),
-      panel.border      = element_blank()
+      legend.key = element_rect(fill = "transparent", colour = NA),
+      panel.border = element_blank()
     )
 }
 
@@ -76,20 +76,20 @@ month_levels <- c("February", "March", "April", "May", "June")
 br_perform_overall <- dat %>%
   summarise(
     mean_clutch = mean(clutch_size, na.rm = TRUE),
-    sd_clutch = sd(clutch_size,na.rm = TRUE),
+    sd_clutch = sd(clutch_size, na.rm = TRUE),
     mean_hatch = mean(no_hatchling, na.rm = TRUE),
-    sd_hatch = sd(no_hatchling,na.rm = TRUE),
-    mean_fledge = mean(no_fledgling,na.rm = TRUE),
-    sd_fledge = sd(no_fledgling,na.rm = TRUE),
+    sd_hatch = sd(no_hatchling, na.rm = TRUE),
+    mean_fledge = mean(no_fledgling, na.rm = TRUE),
+    sd_fledge = sd(no_fledgling, na.rm = TRUE),
   )
 
-br_perform_by_clutch_no1 <- dat %>% 
+br_perform_by_clutch_no1 <- dat %>%
   filter(clutch_no == 1) %>%
-    summarise(
-      n = n(),
+  summarise(
+    n = n(),
     success = sum(outcome == "Success", na.rm = TRUE),
     fail = sum(outcome == "Fail", na.rm = TRUE),
-    success_rate = (success/n)*100,
+    success_rate = (success / n) * 100,
     median_clutch = median(clutch_size, na.rm = TRUE),
     max_clutch = max(clutch_size, na.rm = TRUE),
     min_clutch = min(clutch_size, na.rm = TRUE),
@@ -100,13 +100,13 @@ br_perform_by_clutch_no1 <- dat %>%
     max_fledge = max(no_fledgling, na.rm = TRUE),
     min_fledge = min(no_fledgling, na.rm = TRUE),
   )
-br_perform_by_clutch_no2 <- dat %>% 
+br_perform_by_clutch_no2 <- dat %>%
   filter(clutch_no == 2) %>%
   summarise(
     n = n(),
     success = sum(outcome == "Success", na.rm = TRUE),
     fail = sum(outcome == "Fail", na.rm = TRUE),
-    success_rate = (success/n)*100,
+    success_rate = (success / n) * 100,
     median_clutch = median(clutch_size, na.rm = TRUE),
     max_clutch = max(clutch_size, na.rm = TRUE),
     min_clutch = min(clutch_size, na.rm = TRUE),
@@ -159,25 +159,26 @@ month_means <- dat %>%
   group_by(month) %>%
   summarise(
     clutch_mean = mean(clutch_size, na.rm = TRUE),
-    clutch_sd   = sd(clutch_size, na.rm = TRUE),
-    hatch_mean  = mean(no_hatchling, na.rm = TRUE),
-    hatch_sd    = sd(no_hatchling, na.rm = TRUE),
-    fledg_mean  = mean(no_fledgling, na.rm = TRUE),
-    fledg_sd    = sd(no_fledgling, na.rm = TRUE),
+    clutch_sd = sd(clutch_size, na.rm = TRUE),
+    hatch_mean = mean(no_hatchling, na.rm = TRUE),
+    hatch_sd = sd(no_hatchling, na.rm = TRUE),
+    fledg_mean = mean(no_fledgling, na.rm = TRUE),
+    fledg_sd = sd(no_fledgling, na.rm = TRUE),
     .groups = "drop"
   )
 
 month_long <- month_means %>%
   pivot_longer(
-    cols = -month,   # keep month as ID column
+    cols = -month, # keep month as ID column
     names_to = c("metric", ".value"),
     names_pattern = "(clutch|hatch|fledg)_(mean|sd)"
   ) %>%
   mutate(
     metric = recode(metric,
-                    clutch = "Clutch size",
-                    hatch  = "Hatchlings",
-                    fledg  = "Fledglings"),
+      clutch = "Clutch size",
+      hatch  = "Hatchlings",
+      fledg  = "Fledglings"
+    ),
     metric = factor(metric, levels = c("Clutch size", "Hatchlings", "Fledglings"))
   )
 
@@ -189,9 +190,11 @@ pB <- ggplot(month_long, aes(x = month, y = mean, group = metric)) +
   ) +
   geom_line(aes(linetype = metric), linewidth = 0.5, color = "black") +
   geom_point(aes(shape = metric), size = 2.2, color = "black") +
-  scale_linetype_manual(values = c("Clutch size" = "solid",
-                                   "Hatchlings"  = "dotted",
-                                   "Fledglings"  = "dashed")) +
+  scale_linetype_manual(values = c(
+    "Clutch size" = "solid",
+    "Hatchlings" = "dotted",
+    "Fledglings" = "dashed"
+  )) +
   scale_shape_manual(values = c("Clutch size" = 16, "Hatchlings" = 17, "Fledglings" = 15)) +
   labs(x = NULL, y = "Mean (±SD)", linetype = NULL, shape = NULL) +
   ggtitle("(B)") +
@@ -199,16 +202,18 @@ pB <- ggplot(month_long, aes(x = month, y = mean, group = metric)) +
   theme(
     legend.position = c(0.82, 0.92),
     legend.key.height = unit(3.2, "mm"),
-    legend.key.width  = unit(4.0, "mm"),
-    legend.spacing.y  = unit(4, "mm"),
-    legend.text       = element_text(margin = margin(t = 0, b = 0)),
-    legend.margin     = margin(0, 0, 0, 0),
+    legend.key.width = unit(4.0, "mm"),
+    legend.spacing.y = unit(4, "mm"),
+    legend.text = element_text(margin = margin(t = 0, b = 0)),
+    legend.margin = margin(0, 0, 0, 0),
     legend.box.margin = margin(0, 0, 0, 0)
   ) +
   guides(
-    linetype = guide_legend(byrow = TRUE,
-                            keyheight = unit(4.2, "mm"),
-                            keywidth  = unit(3.0, "mm"))
+    linetype = guide_legend(
+      byrow = TRUE,
+      keyheight = unit(4.2, "mm"),
+      keywidth = unit(3.0, "mm")
+    )
   )
 
 fig_01 <- pA + pB + plot_layout(ncol = 2, widths = c(1, 1))
@@ -237,8 +242,8 @@ loc_counts <- loc_counts %>%
 
 fig_02 <- ggplot(loc_counts, aes(x = location, y = n, fill = outcome)) +
   geom_col(
-    position = position_dodge2(width = 0.90, padding = 0),  # <- attached bars
-    width = 0.90                                            # <- wide bars
+    position = position_dodge2(width = 0.90, padding = 0), # <- attached bars
+    width = 0.90 # <- wide bars
   ) +
   labs(x = "Nest Location", y = "No. Of Nest", fill = NULL) +
   scale_fill_manual(values = c("Success" = "skyblue2", "Fail" = "steelblue4")) +
@@ -280,19 +285,18 @@ fig_03A <- ggplot(dat, aes(x = factor(year), y = julian)) +
     color = NULL
   ) +
   figure_theme(11) +
-  ggtitle("(A)")+
+  ggtitle("(A)") +
   theme(
     legend.position = c(0.25, 0.85),
     legend.key.height = unit(2.2, "mm"),
-    legend.spacing.y  = unit(0.6, "mm"),
-    
+    legend.spacing.y = unit(0.6, "mm"),
+
     # white legend box
     legend.background = element_rect(fill = "white", colour = "grey40", linewidth = 0.3),
     legend.box.background = element_rect(fill = "white", colour = "grey40", linewidth = 0.3),
-    
+
     # keep legend keys transparent (no grey tiles)
     legend.key = element_rect(fill = "transparent", colour = NA),
-    
     legend.margin = margin(2, 2, 2, 2),
     legend.box.margin = margin(0, 0, 0, 0)
   )
@@ -304,8 +308,8 @@ dat_attempt <- dat %>%
   mutate(
     attempt_type = case_when(
       is.na(clutch_no) ~ NA_character_,
-      clutch_no == 1   ~ "First nests",
-      clutch_no >= 2   ~ "Re-nests"
+      clutch_no == 1 ~ "First nests",
+      clutch_no >= 2 ~ "Re-nests"
     ),
     attempt_type = factor(attempt_type, levels = c("First nests", "Re-nests"))
   ) %>%
@@ -328,15 +332,15 @@ fig_03B <- ggplot(dat_attempt, aes(x = attempt_type, y = julian)) +
   scale_color_manual(values = outcome_cols, drop = FALSE) +
   labs(x = NULL, y = NULL, color = NULL) +
   figure_theme(11) +
-  ggtitle("(B)")+
+  ggtitle("(B)") +
   theme(
-    legend.position = "none"   # keep only one legend (from panel A)
+    legend.position = "none" # keep only one legend (from panel A)
   )
 
 # ----------------------------
 # Combined Figure 03 with panel labels
 # ----------------------------
-tight_panel_gap <- theme(panel.spacing = unit(1, "mm"))  # try 1–3 mm
+tight_panel_gap <- theme(panel.spacing = unit(1, "mm")) # try 1–3 mm
 
 fig_03 <- ((fig_03A + tight_panel_gap) + (fig_03B + tight_panel_gap)) +
   patchwork::plot_layout(widths = c(2.8, 1.2))
@@ -355,11 +359,11 @@ year_tbl <- dat %>%
   summarise(
     `Nests (n)` = n(),
     mean_jul = mean(julian, na.rm = TRUE),
-    sd_jul   = sd(julian, na.rm = TRUE),
+    sd_jul = sd(julian, na.rm = TRUE),
     earliest_jul = min(julian, na.rm = TRUE),
-    latest_jul   = max(julian, na.rm = TRUE),
+    latest_jul = max(julian, na.rm = TRUE),
     earliest_date = format(date[which.min(julian)], "%b %d"),
-    latest_date   = format(date[which.max(julian)], "%b %d"),
+    latest_date = format(date[which.max(julian)], "%b %d"),
     .groups = "drop"
   ) %>%
   mutate(
@@ -377,4 +381,3 @@ year_tbl <- dat %>%
   arrange(Year)
 
 write_csv(year_tbl, file.path(output_dir, "Table_01_FirstEgg_Summary_by_Year.csv"))
-
