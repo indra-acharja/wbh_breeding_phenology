@@ -1,0 +1,15 @@
+Metric,Overall,Clutch 1,Clutch 2
+N,33,28,5
+Success Rate,51.5151515151515,60.7142857142857,0
+Clutch Size Mean,3.06666666666667,NA,NA
+Clutch Size Sd,0.520830459762188,NA,NA
+No Hatchling Mean,1.54545454545455,NA,NA
+No Hatchling Sd,1.22706227151755,NA,NA
+No Fledgling Mean,1.12121212121212,NA,NA
+No Fledgling Sd,1.24392462989061,NA,NA
+Clutch Size Median,NA,3,3
+Clutch Size Max,NA,4,3
+No Hatchling Median,NA,2,0
+No Hatchling Max,NA,4,2
+No Fledgling Median,NA,1.5,0
+No Fledgling Max,NA,4,0

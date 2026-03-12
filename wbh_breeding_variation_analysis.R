@@ -200,3 +200,4 @@ yearly_summary_gt <- breeding_data %>%
 gtsave(yearly_summary_gt, file.path(OUTPUT_DIR, "Table_01_Yearly_Summary.png"))
 
 message("Analysis complete. All publication-quality outputs saved to: ", normalizePath(OUTPUT_DIR))
+
