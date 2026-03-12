@@ -80,6 +80,11 @@ The analysis requires **R** and the following libraries:
 **Article citation:**  
 Acharja, I. P., Green, M. C., Okahisa, Y., Phuntsho, T., Tobgay, T., Khandu, P., & Shimano, S. (2026). Increasing variability and declining breeding success: A major challenge in the conservation of the critically endangered *Ardea insignis* (White-bellied Heron). *Journal of Ornithology*. https://doi.org/[article DOI] (to be updated upon publication)
 
+**Data and code citation:**  
+Acharja, I. P., Green, M. C., Okahisa, Y., Phuntsho, T., Tobgay, T., Khandu, P., & Shimano, S. (2026). Data and code for: Increasing variability and declining breeding success: A major challenge in the conservation of the critically endangered *Ardea insignis* (White-bellied Heron). [Data set and software]. Texas State University Digital Repository. https://doi.org/10.18738/T8/L8JRSM
+
+---
+
 
 ## License
 This dataset and code are licensed under a **Creative Commons Attribution 4.0 International (CC BY 4.0)** License.
